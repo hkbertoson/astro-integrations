@@ -1,4 +1,4 @@
-# `@hkbertoson/astro-s3`
+# `@hbertoson/astro-s3`
 
 # This is still in development. Please do not use in production.
 

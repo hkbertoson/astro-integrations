@@ -1,4 +1,4 @@
-# @hkbertoson/astro-resend
+# @hbertoson/astro-resend
 
 ## 0.0.1
 

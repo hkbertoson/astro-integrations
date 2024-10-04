@@ -1,4 +1,4 @@
-# `@hkbertoson/astro-resend`
+# `@hbertoson/astro-resend`
 
 # This is still in development. Please do not use in production.
 

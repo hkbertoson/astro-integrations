@@ -1,5 +1,5 @@
 {
-	"name": "@hkbertoson/astro-s3",
+	"name": "@hbertoson/astro-s3",
 	"version": "0.0.1",
 	"description": "Astro S3 Integration",
 	"author": {

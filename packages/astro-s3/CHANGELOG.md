@@ -1,4 +1,4 @@
-# @hkbertoson/astro-s3
+# @hbertoson/astro-s3
 
 ## 0.0.1
 
