@@ -1,6 +1,6 @@
 {
 	"name": "@hkbertoson/astro-s3",
-	"version": "0.0.1",
+	"version": "0.0.0",
 	"description": "Astro S3 Integration",
 	"author": {
 		"email": "dev@hunterbertoson.tech",
