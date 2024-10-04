@@ -1,6 +1,6 @@
 {
 	"name": "@hkbertoson/astro-resend",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Astro Resend Integration",
 	"author": {
 		"email": "dev@hunterbertoson.tech",
