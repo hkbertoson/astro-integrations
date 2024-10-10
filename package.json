@@ -1,11 +1,11 @@
 {
 	"name": "root",
 	"private": true,
-	"packageManager": "pnpm@9.11.0",
+	"packageManager": "pnpm@9.12.1",
 	"engines": {
 		"node": ">=18.20.3"
 	},
-  "license": "MIT",
+	"license": "MIT",
 	"scripts": {
 		"package:dev": "pnpm --filter package-name dev",
 		"playground:dev": "pnpm --filter playground dev",
