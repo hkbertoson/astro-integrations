@@ -1,17 +1,19 @@
-import {addVirtualImports, defineIntegration} from 'astro-integration-kit';
-import {AstroResendOptionsSchema as optionsSchema} from './schema.ts';
-import {envField} from 'astro/config';
-import {loggerStrings} from './strings.ts';
+import { addVirtualImports, defineIntegration } from "astro-integration-kit";
+import { AstroResendOptionsSchema as optionsSchema } from "./schema.ts";
+import { envField } from "astro/config";
+import { loggerStrings } from "./strings.ts";
+import { name } from "../package.json";
+import Dts from "./stubs.ts";
 
 export const integration = defineIntegration({
-	name: 'astro-resend',
+	name,
 	optionsSchema,
-	setup({name,options: {verbose}}) {
+	setup({ options, options: { verbose } }) {
 		return {
 			hooks: {
-				'astro:config:setup': (params) => {
+				"astro:config:setup": (params) => {
 					// Destructure the params object
-					const {logger, updateConfig} = params;
+					const { logger, updateConfig } = params;
 
 					// Log startup message
 					verbose && logger.info(loggerStrings.setup);
@@ -28,8 +30,8 @@ export const integration = defineIntegration({
 								validateSecrets: true,
 								schema: {
 									RESEND_API_KEY: envField.string({
-										access: 'secret',
-										context: 'server',
+										access: "secret",
+										context: "server",
 										optional: false,
 									}),
 								},
@@ -40,9 +42,12 @@ export const integration = defineIntegration({
 					addVirtualImports(params, {
 						name,
 						imports: {
-							'astro-resend:components': `export * from '${name}/components';`,
-						}
-					})
+							"virtual:astro-resend/config": `export default ${JSON.stringify(options)}`,
+						},
+					});
+				},
+				"astro:config:done": ({ injectTypes }) => {
+					injectTypes(Dts.config);
 				},
 			},
 		};

@@ -8,13 +8,7 @@
 		"url": "https://github.com/hkbertoson/astro-integrations/tree/main/packages/astro-resend"
 	},
 	"license": "MIT",
-	"keywords": [
-		"astro-integration",
-		"astro-component",
-		"withastro",
-		"astro",
-		"TODO:"
-	],
+	"keywords": ["astro-integration", "astro-component", "withastro", "astro"],
 	"homepage": "https://github.com/hkbertoson/astro-integrations/tree/main/packages/astro-resend",
 	"publishConfig": {
 		"access": "public"
@@ -25,9 +19,9 @@
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
 		},
-		"./components": "./lib/components/index.ts"
+		"./schema": "./src/schema.ts"
 	},
-	"files": ["src", "lib"],
+	"files": ["dist"],
 	"scripts": {
 		"dev": "tsup --watch",
 		"build": "tsup"
@@ -37,6 +31,7 @@
 		"astro": "^4.15.9"
 	},
 	"dependencies": {
+		"@matthiesenxyz/astrodtsbuilder": "^0.1.2",
 		"astro-integration-kit": "^0.16.1",
 		"resend": "^4.0.0"
 	},

@@ -1,4 +1,4 @@
-import {z} from 'astro:schema';
+import { z } from "astro/zod";
 
 /**
  * Astro-Resend configuration options schema.
@@ -14,7 +14,7 @@ export const AstroResendOptionsSchema = z
 			.boolean()
 			.optional()
 			.default(false)
-			.describe('Enable verbose logging. (default: false)'),
+			.describe("Enable verbose logging. (default: false)"),
 		/**
 		 * From Email.
 		 * @type {string}
@@ -23,9 +23,9 @@ export const AstroResendOptionsSchema = z
 		fromEmail: z
 			.string()
 			.optional()
-			.default('Acme <onboarding@resend.dev>')
+			.default("Acme <onboarding@resend.dev>")
 			.describe(
-				'Default email to use when sending emails (default: Acme <onboarding@resend.dev>)'
+				"Default email to use when sending emails (default: Acme <onboarding@resend.dev>)",
 			),
 		/**
 		 * Prevent Threading on Gmail
@@ -36,7 +36,7 @@ export const AstroResendOptionsSchema = z
 			.boolean()
 			.optional()
 			.default(false)
-			.describe('Prevent threading on Gmail. (default: false)'),
+			.describe("Prevent threading on Gmail. (default: false)"),
 		/**
 		 * Unsubscribe URL header.
 		 * @type {boolean}
@@ -46,7 +46,12 @@ export const AstroResendOptionsSchema = z
 			.boolean()
 			.optional()
 			.default(false)
-			.describe('Add an unsubscribe URL to the email. (default: false)'),
+			.describe("Add an unsubscribe URL to the email. (default: false)"),
 	})
 	.optional()
 	.default({});
+
+/**
+ * Astro-Resend configuration options type used by the `virtual:astro-resend/config` module.
+ */
+export type AstroResendOptionsSchema = z.infer<typeof AstroResendOptionsSchema>;

@@ -6,7 +6,7 @@ import resend from '@hbertoson/astro-resend'
 export default defineConfig({
     integrations: [
         resend({
-            
+            verbose: true,
         })
     ]
 });
