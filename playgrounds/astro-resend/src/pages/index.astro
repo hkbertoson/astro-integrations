@@ -1,7 +1,3 @@
----
-
----
-
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -12,5 +8,30 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+		<form>
+			<label for="name">Name</label>
+			<input type="text" name="name" />
+			<button type="submit">Submit</button>
+		</form>
+		<script>
+			const form = document.querySelector('form');
+			if (form) {
+				form.addEventListener('submit', async (event) => {
+					event.preventDefault();
+					const formData = new FormData(form);
+					const response = await fetch('/api', {
+						method: 'POST',
+						body: formData,
+					});
+					const data = await response.json();
+					if (response.status === 200) {
+						alert('Form Submitted!');
+						form.reset();
+					} else {
+						alert(data.error);
+					}
+				});
+			}
+		</script>
 	</body>
 </html>

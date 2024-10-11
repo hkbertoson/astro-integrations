@@ -1,5 +1,6 @@
 {
 	"name": "astro-resend",
+	"private": true,
 	"type": "module",
 	"version": "0.0.1",
 	"scripts": {
@@ -10,9 +11,10 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"astro": "^4.16.0",
 		"@astrojs/check": "^0.9.4",
+		"@astrojs/node": "^8.3.4",
 		"@hbertoson/astro-resend": "workspace:*",
+		"astro": "^4.16.0",
 		"typescript": "^5.6.3"
 	}
 }

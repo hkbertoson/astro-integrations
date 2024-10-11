@@ -1,12 +1,22 @@
+import resend from "@hbertoson/astro-resend";
 // @ts-check
-import { defineConfig } from 'astro/config';
-import resend from '@hbertoson/astro-resend'
+import { defineConfig } from "astro/config";
+
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [
-        resend({
-            verbose: true,
-        })
-    ]
+	output: "server",
+	integrations: [
+		resend({
+			fromEmail: "",
+			toEmail: "",
+			preventThreading: true,
+			verbose: true,
+		}),
+	],
+
+	adapter: node({
+		mode: "standalone",
+	}),
 });
