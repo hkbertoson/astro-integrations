@@ -1,15 +1,15 @@
-import {defineIntegration} from 'astro-integration-kit';
-import {envField} from 'astro/config';
-import {name} from '../package.json';
-import {loggerStrings} from './strings.ts';
+import { defineIntegration } from "astro-integration-kit";
+import { envField } from "astro/config";
+import { name } from "../package.json";
+import { loggerStrings } from "./strings.ts";
 
 export const astroS3 = defineIntegration({
 	name,
-	setup({options: {verbose}}) {
+	setup({ options: { verbose } }) {
 		return {
 			hooks: {
-				'astro:config:setup': (params) => {
-					const {logger, updateConfig, config} = params;
+				"astro:config:setup": (params) => {
+					const { logger, updateConfig, config } = params;
 					verbose && logger.info(loggerStrings.setup);
 
 					// Update the User's Astro config ('astro:env') with the required S3 environment variables
@@ -20,23 +20,23 @@ export const astroS3 = defineIntegration({
 								validateSecrets: true,
 								schema: {
 									S3_BUCKET: envField.string({
-										access: 'secret',
-										context: 'server',
+										access: "secret",
+										context: "server",
 										optional: true,
 									}),
 									region: envField.string({
-										access: 'secret',
-										context: 'server',
+										access: "secret",
+										context: "server",
 										optional: true,
 									}),
 									S3_ACCESS_KEY: envField.string({
-										access: 'secret',
-										context: 'server',
+										access: "secret",
+										context: "server",
 										optional: true,
 									}),
 									S3_SECRET_KEY: envField.string({
-										access: 'secret',
-										context: 'server',
+										access: "secret",
+										context: "server",
 										optional: true,
 									}),
 								},
