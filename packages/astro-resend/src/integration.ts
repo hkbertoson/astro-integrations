@@ -1,8 +1,8 @@
 import { addVirtualImports, defineIntegration } from "astro-integration-kit";
-import { AstroResendOptionsSchema as optionsSchema } from "./schema.ts";
 import { envField } from "astro/config";
-import { loggerStrings } from "./strings.ts";
 import { name } from "../package.json";
+import { AstroResendOptionsSchema as optionsSchema } from "./schema.ts";
+import { loggerStrings } from "./strings.ts";
 import Dts from "./stubs.ts";
 
 export const integration = defineIntegration({
@@ -13,7 +13,7 @@ export const integration = defineIntegration({
 			hooks: {
 				"astro:config:setup": (params) => {
 					// Destructure the params object
-					const { logger, updateConfig } = params;
+					const { logger, updateConfig, injectRoute } = params;
 
 					// Log startup message
 					verbose && logger.info(loggerStrings.setup);
@@ -39,11 +39,17 @@ export const integration = defineIntegration({
 						},
 					});
 
+					verbose && logger.info(loggerStrings.virtualImports);
 					addVirtualImports(params, {
 						name,
 						imports: {
 							"virtual:astro-resend/config": `export default ${JSON.stringify(options)}`,
 						},
+					});
+
+					injectRoute({
+						pattern: "/api",
+						entrypoint: `${name}/server`,
 					});
 				},
 				"astro:config:done": ({ injectTypes }) => {

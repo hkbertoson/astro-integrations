@@ -1,62 +1,152 @@
-# `@hbertoson/astro-resend`
+# Astro Resend
 
-# This is still in development. Please do not use in production.
+This is an [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) that allows you to easily send email notifications for form submissions using Resend in an Astro project. The integration captures form data, generates an HTML email, and sends it to a specified recipient using Resend's API.
 
-This is an [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) that TODO:description
 
-## Usage
 
-### Prerequisites
+## Features
 
-TODO:
+- Capture form submissions and send email notifications.
+- Generate unique identifiers for each form submission.
+- Supports custom headers such as X-Entity-Ref-ID and List-Unsubscribe.
+- Customizable email template with all submitted form fields.
+- Compatible with Astro's server-side routing and form handling.
 
-### Installation
+
+## Prerequisites
+
+Before you can use this integration, you need to have a Resend account. You can sign up for a free account [here](https://resend.com/).
+## Installation
 
 Install the integration **automatically** using the Astro CLI:
 
 ```bash
-pnpm astro add package-name
+pnpm astro add @hbertoson/astro-resend
 ```
 
 ```bash
-npx astro add package-name
+npx astro add @hbertoson/astro-resend
 ```
 
 ```bash
-yarn astro add package-name
+yarn astro add @hbertoson/astro-resend
 ```
+
 
 Or install it **manually**:
 
 1. Install the required dependencies
 
 ```bash
-pnpm add package-name
+pnpm add @hbertoson/astro-resend
 ```
 
 ```bash
-npm install package-name
+npm install @hbertoson/astro-resend
 ```
 
 ```bash
-yarn add package-name
+yarn add @hbertoson/astro-resend
 ```
 
 2. Add the integration to your astro config
 
 ```diff
-+import integration from "package-name";
++import resend from '@hbertoson/astro-resend'
 
 export default defineConfig({
   integrations: [
-+    integration(),
++    resend({
+        fromEmail: 'youremail@email.com',
+        toEmail: 'youremail@email.com',
+    }),
   ],
 });
 ```
 
 ### Configuration
 
-TODO:configuration
+#### `.env` File
+
+You will need to add your API Key your `.env` file:
+
+- `RESEND_API_KEY` (required): Your Resend API key - this should be kept secret
+    
+#### Astro Config Options
+
+**`verbose`**
+- Type: `boolean`
+- Default: `false`
+
+Enable verbose logging.
+
+**`fromEmail`**
+- Type: `string`
+- Default: `onboarding@resend.dev`
+
+The email you want to use to send emails. 
+
+**`toEmail`**
+- Type: `string`
+- Default: `onboarding@resend.dev`
+
+The email you want to receive emails at
+
+**`preventThreading`**
+- Type: `boolean`
+- Default: `false`
+
+Unique string to Prevent Threading on Gmail
+
+**`unsubscribeUrl`**
+- Type: `string`
+
+Link to unsubscribe 
+
+
+## Usage/Examples
+
+```html
+<body>
+    <h1>Astro</h1>
+    <form>
+        <label for="name">Name</label>
+        <input type="text" name="name" />
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const response = await fetch('/api', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await response.json();
+                if (response.status === 200) {
+                    alert('Form Submitted!');
+                    form.reset();
+                } else {
+                    alert(data.error);
+                }
+            });
+        }
+    </script>
+</body>
+```
+
+## Roadmap
+
+- Support Multiple Recipients
+
+- Allow configuration for sending emails to multiple recipients.
+    - Enable dynamic recipient selection based on form input (e.g., department-specific         notifications).
+
+- Enhance Documentation
+    - Add more examples for common use cases such as contact forms and feedback forms.
+    - Provide templates for common email formats.
 
 ## Contributing
 
@@ -79,10 +169,18 @@ pnpm dev
 
 You can now edit files in `package`. Please note that making changes to those files may require restarting the playground dev server.
 
-## Licensing
 
-[MIT Licensed](https://github.com/TODO:/blob/main/LICENSE). Made with ❤️ by [TODO:](https://github.com/TODO:).
+Made with ❤️ by [Hunter Bertoson](https://github.com/hkbertoson).
+
+
 
 ## Acknowledgements
 
-TODO:
+[Astro](https://astro.build/)
+
+[Resend](https://resend.com/)
+
+[Florian Lefebvre](https://github.com/florian-lefebvre)
+
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)

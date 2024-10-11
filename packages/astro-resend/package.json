@@ -19,7 +19,8 @@
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
 		},
-		"./schema": "./src/schema.ts"
+		"./schema": "./src/schema.ts",
+		"./server": "./lib/server.ts"
 	},
 	"files": ["dist"],
 	"scripts": {

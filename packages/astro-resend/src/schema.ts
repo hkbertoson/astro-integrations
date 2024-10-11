@@ -22,11 +22,19 @@ export const AstroResendOptionsSchema = z
 		 */
 		fromEmail: z
 			.string()
-			.optional()
 			.default("Acme <onboarding@resend.dev>")
 			.describe(
 				"Default email to use when sending emails (default: Acme <onboarding@resend.dev>)",
 			),
+		/**
+		 * To Email.
+		 * @type {string}
+		 * @default "Acme <onboarding@resend.dev>"
+		 */
+		toEmail: z
+			.string()
+			.default("Acme <onboarding@resend.dev>")
+			.describe("Recipient email address."),
 		/**
 		 * Prevent Threading on Gmail
 		 * @type {boolean}
@@ -39,19 +47,19 @@ export const AstroResendOptionsSchema = z
 			.describe("Prevent threading on Gmail. (default: false)"),
 		/**
 		 * Unsubscribe URL header.
-		 * @type {boolean}
-		 * @default false
+		 * @type {string}
 		 */
-		unsubscribeUrl: z
-			.boolean()
-			.optional()
-			.default(false)
-			.describe("Add an unsubscribe URL to the email. (default: false)"),
+		unsubscribeUrl: z.string().optional().describe("Unsubscribe URL header."),
 	})
 	.optional()
 	.default({});
 
 /**
+ * Astro-Resend configuration options type.
+ */
+export type AstroResendOptions = typeof AstroResendOptionsSchema._input;
+
+/**
  * Astro-Resend configuration options type used by the `virtual:astro-resend/config` module.
  */
-export type AstroResendOptionsSchema = z.infer<typeof AstroResendOptionsSchema>;
+export type AstroResendConfig = z.infer<typeof AstroResendOptionsSchema>;
