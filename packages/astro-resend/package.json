@@ -1,6 +1,6 @@
 {
 	"name": "@hbertoson/astro-resend",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "Astro Resend Integration",
 	"author": {
 		"email": "dev@hunterbertoson.tech",
@@ -8,7 +8,12 @@
 		"url": "https://github.com/hkbertoson/astro-integrations/tree/main/packages/astro-resend"
 	},
 	"license": "MIT",
-	"keywords": ["astro-integration", "astro-component", "withastro", "astro"],
+	"keywords": [
+		"astro-integration",
+		"astro-component",
+		"withastro",
+		"astro"
+	],
 	"homepage": "https://github.com/hkbertoson/astro-integrations/tree/main/packages/astro-resend",
 	"publishConfig": {
 		"access": "public"
@@ -22,7 +27,9 @@
 		"./schema": "./src/schema.ts",
 		"./server": "./lib/server.ts"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"dev": "tsup --watch",
 		"build": "tsup"
