@@ -1,6 +1,6 @@
 {
 	"name": "@hbertoson/astro-lottie",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Astro Lottie Integration",
 	"author": {
 		"email": "dev@hunterbertoson.tech",
