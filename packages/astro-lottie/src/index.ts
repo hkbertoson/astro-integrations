@@ -1,3 +1,3 @@
-import astroLottie from './integration.js';
+import {integration} from './integration.js';
 
-export default astroLottie;
+export default integration;
