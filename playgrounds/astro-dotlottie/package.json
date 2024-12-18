@@ -10,7 +10,7 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"astro": "^4.16.13",
+		"astro": "^4.16.17",
 		"@astrojs/check": "^0.9.4",
 		"typescript": "^5.7.2",
 		"@hbertoson/astro-lottie": "workspace:*"
