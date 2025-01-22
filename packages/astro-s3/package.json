@@ -8,7 +8,12 @@
 		"url": "https://github.com/hkbertoson/astro-integrations/tree/main/packages/astro-s3"
 	},
 	"license": "MIT",
-	"keywords": ["astro-integration", "astro-component", "withastro", "astro"],
+	"keywords": [
+		"astro-integration",
+		"astro-component",
+		"withastro",
+		"astro"
+	],
 	"homepage": "https://github.com/hkbertoson/astro-integrations/tree/main/packages/astro-s3",
 	"publishConfig": {
 		"access": "public"
@@ -20,17 +25,19 @@
 			"default": "./dist/index.js"
 		}
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {},
 	"type": "module",
 	"peerDependencies": {
-		"astro": "^4.15.9"
+		"astro": "^5.1.8"
 	},
 	"dependencies": {
-		"@aws-sdk/client-s3": "^3.665.0",
-		"astro-integration-kit": "^0.16.1"
+		"@aws-sdk/client-s3": "^3.731.1",
+		"astro-integration-kit": "^0.18.0"
 	},
 	"devDependencies": {
-		"tsup": "^8.3.0"
+		"tsup": "^8.3.5"
 	}
 }

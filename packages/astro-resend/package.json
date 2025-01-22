@@ -25,7 +25,8 @@
 			"default": "./dist/index.js"
 		},
 		"./schema": "./src/schema.ts",
-		"./server": "./lib/server.ts"
+		"./server": "./lib/server.ts",
+		"./client": "./lib/client.ts"
 	},
 	"files": [
 		"dist"
@@ -36,14 +37,14 @@
 	},
 	"type": "module",
 	"peerDependencies": {
-		"astro": "^4.15.9"
+		"astro": "^5.0.0"
 	},
 	"dependencies": {
-		"@matthiesenxyz/astrodtsbuilder": "^0.1.2",
-		"astro-integration-kit": "^0.16.1",
-		"resend": "^4.0.0"
+		"@matthiesenxyz/astrodtsbuilder": "^0.2.0",
+		"astro-integration-kit": "^0.18.0",
+		"resend": "^4.1.1"
 	},
 	"devDependencies": {
-		"tsup": "^8.3.0"
+		"tsup": "^8.3.5"
 	}
 }
