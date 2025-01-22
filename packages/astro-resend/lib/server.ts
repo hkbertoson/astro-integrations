@@ -1,111 +1,135 @@
-import { randomBytes } from "node:crypto";
-import { RESEND_API_KEY } from "astro:env/server";
-import config from "virtual:astro-resend/config";
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
+import { experimental_AstroContainer } from "astro/container";
+import { randomBytes } from "node:crypto";
+import { RESEND_API_KEY } from "astro:env/server";
+import templates from "virtual:astro-resend/templates";
+import config from "virtual:astro-resend/config";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
 const resend = new Resend(RESEND_API_KEY);
 
 export const prerender = false;
 
-interface EmailOptions {
-	from: string;
-	to: string;
-	subject: string;
-	html: string;
-	headers?: Record<string, string>;
+interface EmailRequest {
+  to: string | string[];
+  subject: string;
+  templateName: string;
+  props: Record<string, unknown>;
+  headers?: Record<string, string>;
+}
+
+async function renderEmailTemplate(
+  templateName: string,
+  props: Record<string, unknown>
+): Promise<string> {
+  const template = templates[templateName];
+  if (!template) {
+    throw new Error(
+      `Template "${templateName}" not found. Available templates: ${Object.keys(
+        templates
+      ).join(", ")}`
+    );
+  }
+
+  const container = await experimental_AstroContainer.create();
+  return container.renderToString(template as AstroComponentFactory, {
+    props: {
+      ...props,
+    },
+  });
 }
 
 function generateUniqueId(): string {
-	return randomBytes(16).toString("hex");
+  return randomBytes(16).toString("hex");
 }
 
 export const POST: APIRoute = async ({ request }) => {
-	try {
-		const data = await request.formData();
+  try {
+    const { to, subject, templateName, props, headers } =
+      (await request.json()) as EmailRequest;
 
-		// Convert FormData to an object
-		const formDataObject: Record<string, string> = {};
-		for (const [key, value] of data.entries()) {
-			if (typeof value === "string") {
-				formDataObject[key] = value;
-			}
-		}
+    if (!to || !subject || !templateName) {
+      throw new Error(
+        "Missing required fields: 'to', 'subject', and 'templateName' are required"
+      );
+    }
 
-		// Generate email content
-		const htmlContent = generateEmailContent(formDataObject);
-		const entityRefID = generateUniqueId();
+    const entityRefID = generateUniqueId();
+    const html = await renderEmailTemplate(templateName, props || {});
 
-		// Validate email config
-		if (!config.toEmail || !config.fromEmail) {
-			throw new Error("Recipient or sender email address not configured.");
-		}
+    await resend.emails.send({
+      from: config.fromEmail,
+      to: Array.isArray(to) ? to : [to],
+      subject,
+      html,
+      headers: {
+        "X-Entity-Ref-ID": entityRefID,
+        ...(config.headers?.preventThreading && {
+          "X-Entity-Ref-ID": entityRefID,
+        }),
+        ...(config.headers?.unsubscribeUrl && {
+          "List-Unsubscribe": `<${config.headers.unsubscribeUrl}>`,
+        }),
+        ...headers,
+      },
+    });
 
-		// Prepare email options
-		const emailOptions: EmailOptions = {
-			from: config.fromEmail,
-			to: config.toEmail,
-			subject: "New Form Submission",
-			html: htmlContent,
-			headers: {
-				...(config.preventThreading && { "X-Entity-Ref-ID": entityRefID }),
-				...(config.unsubscribeUrl && {
-					"List-Unsubscribe": `<${config.unsubscribeUrl}>`,
-				}),
-			},
-		};
-
-		// Send the email
-		await resend.emails.send(emailOptions);
-
-		return new Response(
-			JSON.stringify({ message: "Form submission received and email sent!" }),
-			{
-				status: 200,
-				headers: { "Content-Type": "application/json" },
-			},
-		);
-	} catch (error) {
-		console.error("Error processing form submission:", error);
-		return new Response(
-			JSON.stringify({ error: "Failed to process form submission" }),
-			{
-				status: 500,
-				headers: { "Content-Type": "application/json" },
-			},
-		);
-	}
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: "Email sent successfully",
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } catch (error) {
+    console.error("Error sending email:", error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error:
+          error instanceof Error ? error.message : "An unknown error occurred",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 };
 
-function generateEmailContent(formData: Record<string, string>): string {
-	let contentHtml = "<h1>New Form Submission</h1>";
-	contentHtml += "<h2>Form Details:</h2><ul>";
+export const GET: APIRoute = async ({ url }) => {
+  try {
+    // Get template name from query parameter
+    const templateName = url.searchParams.get("template");
+    if (!templateName) {
+      throw new Error("Template name is required as a query parameter");
+    }
 
-	for (const [key, value] of Object.entries(formData)) {
-		contentHtml += `<li><strong>${key}:</strong> ${value}</li>`;
-	}
+    const html = await renderEmailTemplate(templateName, {
+      name: "Test User",
+      content: "This is a test email",
+    });
 
-	contentHtml += "</ul>";
+    console.log("html", html);
 
-	return `
-    <html>
-      <body>
-        ${contentHtml}
-      </body>
-    </html>
-  `;
-}
-
-export const ALL: APIRoute = async () => {
-	// Return a 405 error for all other requests than POST
-	return new Response(
-		JSON.stringify({ error: "Method not allowed" }, null, 2),
-		{
-			status: 405,
-			statusText: "method not allowed",
-			headers: {
-				"content-type": "application/json",
-			},
-		},
-	);
+    return new Response(html, {
+      status: 200,
+      headers: { "Content-Type": "text/html" },
+    });
+  } catch (error) {
+    return new Response(
+      JSON.stringify({
+        error:
+          error instanceof Error ? error.message : "Failed to render template",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 };
