@@ -1,37 +1,38 @@
+---
+import {} from "astro/types";
+---
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-		<form>
-			<label for="name">Name</label>
-			<input type="text" name="name" />
-			<button type="submit">Submit</button>
-		</form>
-		<script>
-			const form = document.querySelector('form');
-			if (form) {
-				form.addEventListener('submit', async (event) => {
-					event.preventDefault();
-					const formData = new FormData(form);
-					const response = await fetch('/api', {
-						method: 'POST',
-						body: formData,
-					});
-					const data = await response.json();
-					if (response.status === 200) {
-						alert('Form Submitted!');
-						form.reset();
-					} else {
-						alert(data.error);
-					}
-				});
-			}
-		</script>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <h1>Astro</h1>
+    <button>Send Email</button>
+    <script>
+      import {
+        sendEmail,
+        type EmailRequest,
+      } from "@hbertoson/astro-resend/client";
+      const button = document.querySelector("button");
+      button?.addEventListener("click", async () => {
+        const emailData: EmailRequest = {
+          to: "hunterkylebertoson@gmail.com",
+          subject: "Test Email",
+          templateName: "Email",
+          props: {
+            name: "Matthew",
+            content: "This is a test email. From my Astro Resend Integration",
+          },
+        };
+        console.log("Sending email...");
+        await sendEmail(emailData);
+        console.log("Email sent!");
+      });
+    </script>
+  </body>
 </html>
