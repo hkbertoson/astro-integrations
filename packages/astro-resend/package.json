@@ -42,6 +42,8 @@
 	"dependencies": {
 		"@matthiesenxyz/astrodtsbuilder": "^0.2.0",
 		"astro-integration-kit": "^0.18.0",
+		"juice": "^11.0.0",
+		"node-html-parser": "^7.0.1",
 		"resend": "^4.1.1"
 	},
 	"devDependencies": {

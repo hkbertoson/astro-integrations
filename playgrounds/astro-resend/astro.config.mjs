@@ -12,8 +12,8 @@ export default defineConfig({
 			fromEmail: "noreply@hunterbertoson.tech",
 			verbose: true,
 			templates: {
-				Email: "./src/components/Email.astro",
-				Email2: "./src/components/Email2.astro",
+				email: "./src/components/Email.astro",
+				email2: "./src/components/Email2.astro",
 			}
 		}),
 	],

@@ -6,6 +6,8 @@ import { RESEND_API_KEY } from "astro:env/server";
 import templates from "virtual:astro-resend/templates";
 import config from "virtual:astro-resend/config";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import { transformToEmail } from "../src/utils/emailTransformer";
+import { EmailRequest } from "virtual:astro-resend/types";
 
 const resend = new Resend(RESEND_API_KEY);
 
@@ -33,10 +35,22 @@ async function renderEmailTemplate(
   }
 
   const container = await experimental_AstroContainer.create();
-  return container.renderToString(template as AstroComponentFactory, {
-    props: {
-      ...props,
-    },
+  const renderedHTML = await container.renderToString(
+    template as AstroComponentFactory,
+    {
+      props: {
+        ...props,
+      },
+    }
+  );
+
+  const hasInlineStyles = renderedHTML.includes("style=");
+
+  return transformToEmail(renderedHTML, {
+    width: 600,
+    backgroundColor: "#f6f9fc",
+    inlineCss: hasInlineStyles,
+    preserveInlineStyles: hasInlineStyles,
   });
 }
 
