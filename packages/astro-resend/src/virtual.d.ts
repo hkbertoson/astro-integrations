@@ -8,7 +8,7 @@ interface BaseEmailRequest {
 
 declare module "virtual:astro-mailer/templates" {
   export const templates: Record<string, any>;
-  export default templates;
+  export { templates };
 }
 
 declare module "virtual:astro-mailer/types" {

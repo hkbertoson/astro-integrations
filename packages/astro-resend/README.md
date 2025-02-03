@@ -58,7 +58,10 @@ export default defineConfig({
   integrations: [
 +    resend({
         fromEmail: 'youremail@email.com',
-        toEmail: 'youremail@email.com',
+        templates: {
+            email: "./src/components/Email.astro",
+            email2: "./src/components/Email2.astro",
+        }
     }),
   ],
 });
@@ -86,12 +89,6 @@ Enable verbose logging.
 
 The email you want to use to send emails. 
 
-**`toEmail`**
-- Type: `string`
-- Default: `onboarding@resend.dev`
-
-The email you want to receive emails at
-
 **`preventThreading`**
 - Type: `boolean`
 - Default: `false`
@@ -107,34 +104,29 @@ Link to unsubscribe
 ## Usage/Examples
 
 ```html
-<body>
+  <body>
     <h1>Astro</h1>
-    <form>
-        <label for="name">Name</label>
-        <input type="text" name="name" />
-        <button type="submit">Submit</button>
-    </form>
+    <button>Send Email</button>
     <script>
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const formData = new FormData(form);
-                const response = await fetch('/api', {
-                    method: 'POST',
-                    body: formData,
-                });
-                const data = await response.json();
-                if (response.status === 200) {
-                    alert('Form Submitted!');
-                    form.reset();
-                } else {
-                    alert(data.error);
-                }
-            });
-        }
+      import {
+        sendEmail,
+        type EmailRequest,
+      } from "@hbertoson/astro-resend/client";
+      const button = document.querySelector("button");
+      button?.addEventListener("click", async () => {
+        const emailData: EmailRequest = {
+          to: "dev@hunterbertoson.tech",
+          subject: "Test Email",
+          templateName: "email",
+          props: {
+            name: "Hunter",
+            content: "This is a test email. From my Astro Resend Integration",
+          },
+        };
+        await sendEmail(emailData);
+      });
     </script>
-</body>
+  </body>
 ```
 
 ## Roadmap

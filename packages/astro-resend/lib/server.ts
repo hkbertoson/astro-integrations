@@ -7,19 +7,9 @@ import templates from "virtual:astro-resend/templates";
 import config from "virtual:astro-resend/config";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import { transformToEmail } from "../src/utils/emailTransformer";
-import { EmailRequest } from "virtual:astro-resend/types";
-
-const resend = new Resend(RESEND_API_KEY);
+import type { EmailRequest } from "./client";
 
 export const prerender = false;
-
-interface EmailRequest {
-  to: string | string[];
-  subject: string;
-  templateName: string;
-  props: Record<string, unknown>;
-  headers?: Record<string, string>;
-}
 
 async function renderEmailTemplate(
   templateName: string,
@@ -59,6 +49,7 @@ function generateUniqueId(): string {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  const resend = new Resend(RESEND_API_KEY);
   try {
     const { to, subject, templateName, props, headers } =
       (await request.json()) as EmailRequest;
@@ -127,8 +118,6 @@ export const GET: APIRoute = async ({ url }) => {
       name: "Test User",
       content: "This is a test email",
     });
-
-    console.log("html", html);
 
     return new Response(html, {
       status: 200,

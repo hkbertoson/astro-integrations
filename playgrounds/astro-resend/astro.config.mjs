@@ -1,6 +1,6 @@
 import resend from "@hbertoson/astro-resend";
 // @ts-check
-import { defineConfig, envField } from "astro/config";
+import { defineConfig } from "astro/config";
 
 import node from "@astrojs/node";
 
@@ -14,6 +14,9 @@ export default defineConfig({
 			templates: {
 				email: "./src/components/Email.astro",
 				email2: "./src/components/Email2.astro",
+			},
+			headers: {
+				preventThreading: true,
 			}
 		}),
 	],
