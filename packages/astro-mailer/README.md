@@ -93,24 +93,33 @@ FROM_EMAIL=no-reply@yourdomain.com
 <body>
   <h1>Astro Mailer</h1>
   <button>Send Email</button>
-  <script type="module">
-    import {
-      sendEmail,
-    } from "@hbertoson/astro-mailer";
-
-    document.querySelector("button")?.addEventListener("click", async () => {
-      const emailData: BaseEmailRequest = {
-        to: "recipient@example.com",
-        subject: "Hello from Astro Mailer",
-        templateName: "welcome",
-        props: {
-          name: "Hunter",
-          message: "This is a test from your custom Astro + Nodemailer integration.",
-        },
-      };
-      await sendEmail(emailData);
-    });
-  </script>
+		<script>
+			const button = document.querySelector('button') as HTMLButtonElement;
+			button.addEventListener('click', async () => {
+				const emailData: BaseEmailRequest = {
+					to: 'dev@hunterbertoson.tech',
+					subject: 'Test Email',
+					templateName: 'email',
+					props: {
+						name: 'Hunter',
+						content: 'This is a test email. From my Astro Mailer Integration',
+					},
+				};
+				const res = await fetch('api/email', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(emailData),
+				});
+				if (res.ok) {
+					const data = await res.json();
+					console.log('Email sent successfully:', data);
+				} else {
+					console.error('Error sending email:', res.statusText);
+				}
+			});
+		</script>
 </body>
 ```
 

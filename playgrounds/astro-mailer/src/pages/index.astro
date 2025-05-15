@@ -29,8 +29,12 @@
 					},
 					body: JSON.stringify(emailData),
 				});
-				console.log(res.json());
-				// await sendEmail(emailData);
+				if (res.ok) {
+					const data = await res.json();
+					console.log('Email sent successfully:', data);
+				} else {
+					console.error('Error sending email:', res.statusText);
+				}
 			});
 		</script>
 	</body>
