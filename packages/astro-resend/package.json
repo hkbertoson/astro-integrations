@@ -42,11 +42,11 @@
 	"dependencies": {
 		"@matthiesenxyz/astrodtsbuilder": "^0.2.0",
 		"astro-integration-kit": "^0.18.0",
-		"juice": "^11.0.0",
+		"juice": "^11.0.1",
 		"node-html-parser": "^7.0.1",
-		"resend": "^4.1.1"
+		"resend": "^4.5.1"
 	},
 	"devDependencies": {
-		"tsup": "^8.3.5"
+		"tsup": "^8.4.0"
 	}
 }

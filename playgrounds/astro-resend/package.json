@@ -12,9 +12,9 @@
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.4",
-		"@astrojs/node": "^9.0.1",
+		"@astrojs/node": "^9.2.1",
 		"@hbertoson/astro-resend": "workspace:*",
-		"astro": "^5.1.8",
-		"typescript": "^5.7.3"
+		"astro": "^5.7.13",
+		"typescript": "^5.8.3"
 	}
 }
