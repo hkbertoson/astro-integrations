@@ -1,6 +1,6 @@
 {
 	"name": "@hbertoson/astro-mailer",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "Astro Mailer Integration",
 	"author": {
 		"email": "dev@hunterbertoson.tech",
