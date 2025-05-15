@@ -1,0 +1,37 @@
+---
+const { name } = Astro.props;
+---
+
+<div style="background-color: beige;">
+  <h1>Hello {name}!</h1>
+
+  <p>
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus aut esse
+    nulla at, porro distinctio minima fugit, provident nemo numquam culpa!
+    Ratione, eius dolor facilis officia aperiam explicabo animi obcaecati!
+  </p>
+
+  <div style="background-color:aqua;">
+    <button type="button">Resend Email</button>
+    <span> This is a test </span>
+  </div>
+</div>
+
+<style is:inline>
+  h1 {
+    color: blue;
+  }
+
+  p {
+    color: red;
+  }
+
+  button {
+    background-color: green;
+    color: white;
+  }
+
+  span {
+    color: purple;
+  }
+</style>

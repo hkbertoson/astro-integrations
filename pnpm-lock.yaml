@@ -18,6 +18,37 @@ importers:
         specifier: ^22.12.0
         version: 22.12.0
 
+  packages/astro-mailer:
+    dependencies:
+      '@inox-tools/aik-mod':
+        specifier: ^0.10.1
+        version: 0.10.1(astro-integration-kit@0.18.0(astro@5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0)))(astro@5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0))(vite@6.3.5(@types/node@22.12.0)(yaml@2.7.0))
+      '@matthiesenxyz/astrodtsbuilder':
+        specifier: ^0.2.0
+        version: 0.2.0(astro@5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0))
+      astro:
+        specifier: ^5.0.0
+        version: 5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0)
+      astro-integration-kit:
+        specifier: ^0.18.0
+        version: 0.18.0(astro@5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0))
+      juice:
+        specifier: ^11.0.1
+        version: 11.0.1
+      node-html-parser:
+        specifier: ^7.0.1
+        version: 7.0.1
+      nodemailer:
+        specifier: ^7.0.3
+        version: 7.0.3
+    devDependencies:
+      '@types/nodemailer':
+        specifier: ^6.4.17
+        version: 6.4.17
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.0)
+
   packages/astro-resend:
     dependencies:
       '@matthiesenxyz/astrodtsbuilder':
@@ -42,6 +73,24 @@ importers:
       tsup:
         specifier: ^8.4.0
         version: 8.4.0(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.0)
+
+  playgrounds/astro-mailer:
+    dependencies:
+      '@astrojs/check':
+        specifier: ^0.9.4
+        version: 0.9.4(prettier@3.5.3)(typescript@5.8.3)
+      '@astrojs/node':
+        specifier: ^9.2.1
+        version: 9.2.1(astro@5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0))
+      '@hbertoson/astro-mailer':
+        specifier: workspace:*
+        version: link:../../packages/astro-mailer
+      astro:
+        specifier: ^5.7.13
+        version: 5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
   playgrounds/astro-resend:
     dependencies:
@@ -517,6 +566,23 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@inox-tools/aik-mod@0.10.1':
+    resolution: {integrity: sha512-FE8rPfLigDT7hOPwutBXjKOYjKMGIudoicEUFAonxZe6Zv5AEmlF0NbiRx67iGVg6fmIFaO9begRX/0qfs17Zg==}
+    peerDependencies:
+      astro: ^5
+      astro-integration-kit: ~0.17 || ~0.18
+
+  '@inox-tools/inline-mod@2.1.1':
+    resolution: {integrity: sha512-jgHKVJYwYq4Mv4MUThDCCBLLMl9FvzaVWhqCmaf/AfrBXi5eZeAzeRmzQe8wqLjSEeD9SHg3hQZ3pQuHIvQ5lg==}
+    peerDependencies:
+      vite: ^4 || ^5 || ^6
+    peerDependenciesMeta:
+      vite:
+        optional: true
+
+  '@inox-tools/utils@0.4.0':
+    resolution: {integrity: sha512-9F46GQ3UUNHyb/Qjkra/7sMjNybf+6BanYIE1sBYOwEB+yDqjZKsv0VbZhvoA1QpANzUGEBlbhjD6N/PATBdsQ==}
+
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
     engines: {node: '>=12'}
@@ -738,6 +804,9 @@ packages:
 
   '@types/node@22.12.0':
     resolution: {integrity: sha512-Fll2FZ1riMjNmlmJOdAyY5pUbkftXslB5DgEzlIuNaiWhXd00FhWxVC/r4yV/4wBb9JfImTu+jiSvXTkJ7F/gA==}
+
+  '@types/nodemailer@6.4.17':
+    resolution: {integrity: sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==}
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
@@ -1707,6 +1776,10 @@ packages:
 
   node-mock-http@1.0.0:
     resolution: {integrity: sha512-0uGYQ1WQL1M5kKvGRXWQ3uZCHtLTO8hln3oBjIusM75WoesZ909uQJs/Hb946i2SS+Gsrhkaa6iAO17jRIv6DQ==}
+
+  nodemailer@7.0.3:
+    resolution: {integrity: sha512-Ajq6Sz1x7cIK3pN6KesGTah+1gnwMnx5gKl3piQlQQE/PwyJ4Mbc8is2psWYxK3RJTVeqsDaCv8ZzXLCDHMTZw==}
+    engines: {node: '>=6.0.0'}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -3113,6 +3186,28 @@ snapshots:
   '@img/sharp-win32-x64@0.33.5':
     optional: true
 
+  '@inox-tools/aik-mod@0.10.1(astro-integration-kit@0.18.0(astro@5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0)))(astro@5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0))(vite@6.3.5(@types/node@22.12.0)(yaml@2.7.0))':
+    dependencies:
+      '@inox-tools/inline-mod': 2.1.1(vite@6.3.5(@types/node@22.12.0)(yaml@2.7.0))
+      astro: 5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0)
+      astro-integration-kit: 0.18.0(astro@5.7.13(@types/node@22.12.0)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.0))
+      debug: 4.4.0
+    transitivePeerDependencies:
+      - supports-color
+      - vite
+
+  '@inox-tools/inline-mod@2.1.1(vite@6.3.5(@types/node@22.12.0)(yaml@2.7.0))':
+    dependencies:
+      '@inox-tools/utils': 0.4.0
+      debug: 4.4.0
+      typescript: 5.8.3
+    optionalDependencies:
+      vite: 6.3.5(@types/node@22.12.0)(yaml@2.7.0)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@inox-tools/utils@0.4.0': {}
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -3323,6 +3418,10 @@ snapshots:
   '@types/node@22.12.0':
     dependencies:
       undici-types: 6.20.0
+
+  '@types/nodemailer@6.4.17':
+    dependencies:
+      '@types/node': 22.12.0
 
   '@types/unist@3.0.3': {}
 
@@ -4618,6 +4717,8 @@ snapshots:
       he: 1.2.0
 
   node-mock-http@1.0.0: {}
+
+  nodemailer@7.0.3: {}
 
   normalize-path@3.0.0: {}
 

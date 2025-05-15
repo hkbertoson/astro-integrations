@@ -1,0 +1,20 @@
+{
+	"name": "playground",
+	"private": true,
+	"type": "module",
+	"version": "0.0.3",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro check && astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.9.4",
+		"@astrojs/node": "^9.2.1",
+		"@hbertoson/astro-mailer": "workspace:*",
+		"astro": "^5.7.13",
+		"typescript": "^5.8.3"
+	}
+}

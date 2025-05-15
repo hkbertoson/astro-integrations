@@ -1,0 +1,37 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<h1>Astro</h1>
+		<button>Send Email</button>
+		<script>
+			const button = document.querySelector('button') as HTMLButtonElement;
+			button.addEventListener('click', async () => {
+				console.log(123);
+				const emailData: BaseEmailRequest = {
+					to: 'dev@hunterbertoson.tech',
+					subject: 'Test Email',
+					templateName: 'email',
+					props: {
+						name: 'Hunter',
+						content: 'This is a test email. From my Astro Mailer Integration',
+					},
+				};
+				const res = await fetch('api/email', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(emailData),
+				});
+				console.log(res.json());
+				// await sendEmail(emailData);
+			});
+		</script>
+	</body>
+</html>
