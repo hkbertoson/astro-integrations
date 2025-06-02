@@ -1,5 +1,11 @@
 # @hbertoson/astro-resend
 
+## 1.0.3
+
+### Patch Changes
+
+- bc98b74: Updated package build steps
+
 ## 1.0.2
 
 ### Patch Changes
